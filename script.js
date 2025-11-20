@@ -1226,146 +1226,28 @@ if (!sessionStorage.getItem('bannerClosed')) {
     }
 }
 
-// ============================================
-// 14. AGREGAR BADGES DE DESCUENTO A CURSOS
-// ============================================
-function addDiscountBadges() {
-    courseCards.forEach((card, index) => {
-        // Agregar descuento a cursos pares (ejemplo)
-        if (index % 2 === 0) {
-            const badge = document.createElement('div');
-            badge.classList.add('discount-badge');
-            badge.textContent = '50% OFF';
-            badge.style.cssText = `
-                position: absolute;
-                top: 15px;
-                right: 15px;
-                background-color: #ff0000;
-                color: white;
-                padding: 8px 15px;
-                border-radius: 5px;
-                font-weight: bold;
-                font-size: 0.9rem;
-                box-shadow: 0 2px 8px rgba(255,0,0,0.3);
-                z-index: 10;
-                animation: pulse 2s infinite;
-            `;
-            
-            card.style.position = 'relative';
-            card.appendChild(badge);
-        }
+
+
+// ===== Modal: Botón Explorar y botón X =====
+const modal = document.getElementById("welcomeModal");
+const modalClose = document.getElementById("modal-close");
+const btnExplorar = document.getElementById("btn-explorar");
+
+if(modalClose){
+    modalClose.addEventListener("click", () => {
+        modal.style.display = "none";
     });
-    
-    // Agregar animación pulse
-    const pulseStyle = document.createElement('style');
-    pulseStyle.textContent = `
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-    `;
-    document.head.appendChild(pulseStyle);
 }
 
-addDiscountBadges();
-
-// ============================================
-// 15. MODAL DE BIENVENIDA (Primera Visita)
-// ============================================
-function showWelcomeModal() {
-    // Verificar si es primera visita
-    if (localStorage.getItem('visited')) return;
-    
-    setTimeout(() => {
-        const modal = document.createElement('div');
-        modal.classList.add('welcome-modal');
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            animation: fadeIn 0.5s ease;
-        `;
-        
-        const content = document.createElement('div');
-        content.style.cssText = `
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            position: relative;
-            animation: scaleIn 0.5s ease;
-        `;
-        
-        content.innerHTML = `
-            <h2 style="color: #0052cc; margin-top: 0;">¡Bienvenido a DataMasters! 🎓</h2>
-            <p style="font-size: 1.1rem; line-height: 1.6; color: #333;">
-                Estamos felices de tenerte aquí. Descubre nuestros cursos de Excel, Power BI y Python, 
-                y transforma tu carrera profesional.
-            </p>
-            <p style="font-size: 1.2rem; font-weight: bold; color: #ff0000; margin: 20px 0;">
-                🎉 ¡Obtén 50% de descuento en tu primera compra!
-            </p>
-            <button id="closeWelcome" style="
-                padding: 15px 30px;
-                background-color: #00ABE4;
-                color: white;
-                border: none;
-                border-radius: 5px;
-                font-size: 1.1rem;
-                font-weight: bold;
-                cursor: pointer;
-                margin-top: 10px;
-            ">¡Explorar Cursos!</button>
-        `;
-        
-        const scaleInStyle = document.createElement('style');
-        scaleInStyle.textContent = `
-            @keyframes scaleIn {
-                from {
-                    transform: scale(0.7);
-                    opacity: 0;
-                }
-                to {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-            }
-        `;
-        document.head.appendChild(scaleInStyle);
-        
-        modal.appendChild(content);
-        document.body.appendChild(modal);
-        
-        document.getElementById('closeWelcome').addEventListener('click', () => {
-            modal.style.animation = 'fadeOut 0.3s ease';
-            setTimeout(() => {
-                modal.remove();
-                localStorage.setItem('visited', 'true');
-            }, 300);
+if(btnExplorar){
+    btnExplorar.addEventListener("click", () => {
+        document.querySelector("#cursos").scrollIntoView({
+            behavior: "smooth"
         });
-        
-        const fadeOutStyle = document.createElement('style');
-        fadeOutStyle.textContent = `
-            @keyframes fadeOut {
-                from { opacity: 1; }
-                to { opacity: 0; }
-            }
-        `;
-        document.head.appendChild(fadeOutStyle);
-        
-    }, 1500); // Mostrar después de 1.5 segundos
+        modal.style.display = "none";
+    });
 }
 
-showWelcomeModal();
 
 // ============================================
 // 16. ANIMACIONES AL HACER SCROLL (Intersection Observer)
@@ -1597,38 +1479,74 @@ console.log('%c¡Bienvenido a DataMasters! 🎓', 'color: #00ABE4; font-size: 24
 console.log('%c¿Interesado en el código? ¡Explora y aprende!', 'color: #0052cc; font-size: 14px;');
 console.log('%cScript cargado exitosamente ✅', 'color: #4CAF50; font-size: 12px;');
 
-// ============================================
-// 21. CARRUSEL
-// ============================================
 
-document.addEventListener("DOMContentLoaded", () => {
-    const track = document.querySelector(".carousel-track");
-    if (!track) return; // Evita errores si la sección no existe
 
-    const btnPrev = document.querySelector(".carousel-btn.prev");
-    const btnNext = document.querySelector(".carousel-btn.next");
+// === Carrusel Compacto ===
 
-    let index = 0;
+const track = document.getElementById("carr-track");
+const btnLeft = document.getElementById("btn-left");
+const btnRight = document.getElementById("btn-right");
 
-    const updateCarousel = () => {
-        const cardWidth = track.children[0].offsetWidth + 20; // tarjeta + gap
-        track.style.transform = `translateX(-${index * cardWidth}px)`;
-    };
+let indexC = 0;
 
-    btnNext.addEventListener("click", () => {
-        if (index < track.children.length - 1) {
-            index++;
-            updateCarousel();
-        }
-    });
+function updateCarrusel() {
+    const itemWidth = track.querySelector(".carr-item").offsetWidth + 20; // +gap
+    track.style.transform = `translateX(-${indexC * itemWidth}px)`;
+}
 
-    btnPrev.addEventListener("click", () => {
-        if (index > 0) {
-            index--;
-            updateCarousel();
-        }
-    });
+btnRight.addEventListener("click", () => {
+    const totalItems = track.children.length;
 
-    // Recalcular tamaño si cambia la ventana
-    window.addEventListener("resize", updateCarousel);
+    if (indexC < totalItems - 2) indexC++;
+    else indexC = 0;
+
+    updateCarrusel();
 });
+
+btnLeft.addEventListener("click", () => {
+    const totalItems = track.children.length;
+
+    if (indexC > 0) indexC--;
+    else indexC = totalItems - 2;
+
+    updateCarrusel();
+});
+
+window.addEventListener("resize", updateCarrusel);
+
+
+
+// === MODAL VISTA RÁPIDA ===
+const quickModal = document.getElementById("quickModal");
+const quickImg = document.getElementById("quickImg");
+const quickTitle = document.getElementById("quickTitle");
+const quickDesc = document.getElementById("quickDesc");
+const quickLink = document.getElementById("quickLink");
+const quickClose = document.querySelector(".quick-close");
+
+// abrir modal
+document.querySelectorAll(".quick-view-btn").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        const card = e.target.closest(".course-card");
+
+        quickImg.src = card.dataset.img;
+        quickTitle.textContent = card.dataset.title;
+        quickDesc.textContent = card.dataset.desc;
+        quickLink.href = card.dataset.link;
+
+        quickModal.style.display = "flex";
+    });
+});
+
+// cerrar modal
+quickClose.addEventListener("click", () => {
+    quickModal.style.display = "none";
+});
+
+// cerrar haciendo clic afuera
+quickModal.addEventListener("click", (e) => {
+    if (e.target === quickModal) {
+        quickModal.style.display = "none";
+    }
+});
+

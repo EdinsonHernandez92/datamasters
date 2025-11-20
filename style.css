@@ -462,14 +462,64 @@ section {
 }
 
 /* ===== 6. Pie de página ===== */
-.main-footer {
-    background-color: var(--color-tarjeta); /* Footer blanco */
-    color: var(--color-texto-principal);
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 40px;
-    border-top: 1px solid var(--color-borde-sutil); /* Línea divisoria */
+/* === FOOTER PROFESIONAL === */
+
+.footer {
+    background: #0a1a2a;
+    color: white;
+    padding: 50px 20px 20px;
 }
+
+.footer-container {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    gap: 40px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-col h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+}
+
+.footer-col p {
+    line-height: 1.5;
+}
+
+.footer-col h4 {
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    color: #d3e2f3;
+    text-decoration: none;
+}
+
+.footer-col ul li a:hover {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    border-top: 1px solid #2a3d52;
+    padding-top: 15px;
+    color: #bcd0e1;
+    font-size: 0.9rem;
+}
+
 
 /*### Diseño Responsivo para dispositiovs móviles ###*/
 
@@ -801,3 +851,239 @@ section {
     max-width: 320px;
     flex-shrink: 0;
 }
+
+/* ===== Modal de Bienvenida ===== */
+.welcome-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.welcome-modal .modal-content {
+    background: white;
+    padding: 30px;
+    max-width: 420px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: white;
+}
+
+.modal-btn {
+    background-color: var(--color-acento);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+.modal-btn:hover {
+    background-color: var(--color-acento-hover);
+}
+
+
+
+
+/* === Carrusel compacto (2 tarjetas visibles) === */
+
+.carrusel-container {
+    position: relative;
+    max-width: 900px; /* ancho total del carrusel */
+    margin: 0 auto;
+}
+
+.carr-window {
+    overflow: hidden;
+    width: 100%;
+}
+
+.carr-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s ease-in-out;
+}
+
+.carr-item {
+    flex: 0 0 350px; /* TARJETA DE ANCHO FIJO */
+}
+
+/* Tarjetas uniformes */
+.carr-card {
+    height: 100%;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.carr-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.carr-card .card-content {
+    padding: 15px;
+}
+
+/* Flechas */
+.carr-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 1.8rem;
+    border: none;
+    cursor: pointer;
+    background: var(--color-acento);
+    color: white;
+    z-index: 10;
+}
+
+.carr-btn.left { left: -55px; }  /* flechas hacia afuera */
+.carr-btn.right { right: -55px; }
+
+.carr-btn:hover {
+    background: var(--color-acento-hover);
+}
+
+/* Mobile: 1 tarjeta visible */
+@media (max-width: 768px) {
+    .carr-item {
+        flex: 0 0 80%;
+    }
+
+    .carr-btn.left { left: 5px; }
+    .carr-btn.right { right: 5px; }
+}
+
+
+/* === MODAL PROFESIONAL === */
+
+.quick-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.quick-modal-content {
+    background: #fff;
+    width: 85%;
+    max-width: 900px;
+    border-radius: 16px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.2);
+    animation: fadeIn 0.3s ease;
+    position: relative;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.quick-left {
+    flex: 1.1;
+    background: #f3f6f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.quick-left img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    padding: 20px;
+}
+
+.quick-right {
+    flex: 1;
+    padding: 40px 35px;
+}
+
+.quick-right h2 {
+    color: var(--color-acento);
+    font-size: 1.9rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.quick-right p {
+    font-size: 1.1rem;
+    color: #333;
+    line-height: 1.5;
+}
+
+.quick-details-btn {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 12px 26px;
+    background: var(--color-acento);
+    color: #fff;
+    font-size: 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s ease;
+}
+
+.quick-details-btn:hover {
+    background: var(--color-acento-hover);
+}
+
+/* Botón cerrar */
+.quick-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #666;
+    transition: 0.2s;
+}
+
+.quick-close:hover {
+    color: var(--color-acento);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .quick-modal-content {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .quick-right {
+        padding: 25px 20px;
+        text-align: center;
+    }
+}
+
