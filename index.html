@@ -136,7 +136,7 @@
                 <h2>Contáctanos</h2>
                 <p class="contact-intro">¿Alguna pregunta o comentario? ¡Solo escríbenos un mensaje!</p>
 
-                <form action="#" class="contact-form">
+                <form id="contact-form">
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" id="name" placeholder="Ingresa tu Nombre">
@@ -149,9 +149,9 @@
                         <label for="message">Mensaje</label>
                         <textarea id="message" rows="5" placeholder="Escribe tu mensaje aquí"></textarea>
                     </div>
-                    <button type="submit" class="submit-button">Enviar</button>
+                    <button type="submit" value="Enviar">Enviar</button>
                 </form>
-
+                <p id="form-status" aria-live="polite" style="display:none;margin-top:8px;"></p>
                 <div class="contact-info-grid">
 
                     <a href="acerca.html" class="info-card-link">
@@ -247,6 +247,7 @@
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 </body>
 
 </html>
