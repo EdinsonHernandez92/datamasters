@@ -1550,7 +1550,7 @@ quickModal.addEventListener("click", (e) => {
     }
 });
 
-function(){
+(function(){
                 // Inicializa EmailJS con tu user ID (obténlo en https://www.emailjs.com)
                 emailjs.init('mVbxxoSDQvbg68vOa'); // <- reemplaza TU_USER_ID
 
