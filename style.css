@@ -1087,3 +1087,66 @@ section {
     }
 }
 
+/* ===========================
+   NAVBAR MÓVIL CORREGIDO
+   =========================== */
+@media (max-width: 768px) {
+
+    /* Header compactado */
+    .main-header .container {
+        justify-content: space-between;
+        padding: 10px 15px;
+    }
+
+    /* Ocultar nav + search + right en móvil */
+    .main-nav,
+    .header-search,
+    .header-right {
+        display: none;
+    }
+
+    /* Mostrar hamburguesa + lupa */
+    .mobile-nav-toggle,
+    .mobile-search-toggle {
+        display: block;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+    }
+
+    /* Logo centrado */
+    .header-left {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Estilo del menú móvil cuando está activo */
+    .main-nav.active {
+        display: flex !important;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--color-tarjeta);
+        padding: 20px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        z-index: 999;
+        animation: slideDown 0.25s ease;
+    }
+
+    .main-nav.active a {
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    /* Carrito para móvil (auto generado por JS) */
+    .main-nav.active .cart-link {
+        display: flex !important;
+        justify-content: flex-start;
+        margin-top: 15px;
+        font-size: 1.3rem;
+    }
+}

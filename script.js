@@ -110,15 +110,16 @@ if (contactForm) {
         
         if (isValid) {
             // Mostrar mensaje de éxito
-            showNotification('✅ Mensaje enviado correctamente. Te contactaremos pronto.', 'success');
+            //showNotification('✅ Mensaje enviado correctamente. Te contactaremos pronto.', 'success');
             
             // Limpiar formulario
-            contactForm.reset();
+            //contactForm.reset();
             
             // Quitar clases de validación
-            emailInput.classList.remove('valid', 'invalid');
-            nameInput.classList.remove('valid', 'invalid');
-            messageInput.classList.remove('valid', 'invalid');
+            //emailInput.classList.remove('valid', 'invalid');
+            //nameInput.classList.remove('valid', 'invalid');
+            //messageInput.classList.remove('valid', 'invalid');
+            return;
         } else {
             showNotification('⚠️ Por favor, completa todos los campos correctamente.', 'error');
         }
@@ -1550,40 +1551,17 @@ quickModal.addEventListener("click", (e) => {
     }
 });
 
-(function(){
-                // Inicializa EmailJS con tu user ID (obténlo en https://www.emailjs.com)
-                emailjs.init('mVbxxoSDQvbg68vOa'); // <- reemplaza TU_USER_ID
+// Mover carrito al menú móvil
+menuToggle.addEventListener('click', () => {
+    const cartLink = document.querySelector('.cart-link');
+    const nav = document.querySelector('.main-nav');
 
-                const form = document.getElementById('contact-form');
-                const status = document.getElementById('form-status');
+    if (!cartLink || !nav) return;
 
-                form.addEventListener('submit', function(e){
-                    e.preventDefault();
-                    status.style.display = 'none';
+    if (nav.classList.contains('active')) {
+        nav.appendChild(cartLink);  // mover dentro del menú móvil
+    } else {
+        document.querySelector('.header-right')?.prepend(cartLink); // devolver al header
+    }
+});
 
-                    // Opcional: validación extra antes de enviar
-                    const name = form.from_name.value.trim();
-                    const email = form.from_email.value.trim();
-                    const message = form.message.value.trim();
-                    if (!name || !email || !message) {
-                        status.textContent = 'Por favor completa todos los campos.';
-                        status.style.color = 'red';
-                        status.style.display = '';
-                        return;
-                    }
-
-                    // Envía usando tu service ID y template ID (configura en EmailJS)
-                    emailjs.sendForm('service_yd7pbxd', 'template_yjw7amy', this)
-                        .then(function(){
-                            status.textContent = 'Mensaje enviado correctamente. ¡Gracias!';
-                            status.style.color = 'green';
-                            status.style.display = '';
-                            form.reset();
-                        }, function(error){
-                            console.error('Error EmailJS:', error);
-                            status.textContent = 'Error al enviar. Intenta de nuevo más tarde.';
-                            status.style.color = 'red';
-                            status.style.display = '';
-                        });
-                });
-            })();
